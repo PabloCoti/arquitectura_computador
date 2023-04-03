@@ -1,0 +1,6 @@
+eax = 48
+
+print eax va a buscar el valor del espacio 48.
+Entonces se hace un push eax para insertar el valor 48 en la pila
+Y se hace que a sea el valor del apuntador de pila, se usa ESP
+

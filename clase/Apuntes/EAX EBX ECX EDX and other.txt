@@ -1,0 +1,21 @@
+EAX, EBX, ECX, EDX, and other similar registers are general-purpose registers that are available on most modern x86 processors. They can be used to hold data, memory addresses, and other types of information that are used by the CPU.
+
+Here's a brief overview of what each of these registers is typically used for:
+
+    EAX (Accumulator Register): This register is used for arithmetic and logic operations, and it's also used as the primary register for returning function values.
+
+    EBX (Base Register): This register is used as a base pointer for memory access, and it's also used for storing data.
+
+    ECX (Counter Register): This register is used as a loop counter for iterative operations.
+
+    EDX (Data Register): This register is used for arithmetic and logic operations, and it's also used for storing data.
+
+    ESI (Source Index): This register is used as a pointer to the source data in memory.
+
+    EDI (Destination Index): This register is used as a pointer to the destination data in memory.
+
+    EBP (Base Pointer): This register is used as a base pointer for accessing the stack.
+
+    ESP (Stack Pointer): This register is used as a stack pointer for accessing the stack.
+
+Each of these registers has a 16-bit, 32-bit, and 64-bit version,

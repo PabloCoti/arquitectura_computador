@@ -1,0 +1,5 @@
+In assembly language, push is a command that adds a value onto the top of the stack. The stack is a region of memory used for temporary storage in a program, and it grows downwards in memory.
+
+The push instruction performs two main operations: it first decrements the stack pointer, then stores the value at the new top of the stack. This allows you to save a value on the stack and later retrieve it using a pop instruction, which increments the stack pointer and retrieves the value from the top of the stack.
+
+For example, push eax would store the value of the eax register on the stack, while pop ebx would retrieve the value from the top of the stack and store it in the ebx register.
