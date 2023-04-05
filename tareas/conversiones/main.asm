@@ -24,13 +24,14 @@ SECTION .text
         call printStr
 
         pop eax
-        mov esp[0], eax
+        mov ebx, eax
         call printStrLn
 
         mov eax, msg3
         call printStr
 
-        mov eax, esp[0]
+        mov eax, ebx
+        call stoi
         call printIntLn
 
         call endP

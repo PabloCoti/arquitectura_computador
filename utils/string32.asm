@@ -131,9 +131,7 @@ SECTION .text
 
         ret
 
-    ; eax = int(eax)
-    stoi:
-
+    ; system('cls')
     clear:
         mov eax, cls
         call printStr
@@ -172,3 +170,54 @@ SECTION .text
             int 80
 
         ret
+
+    ; eax = int(eax)
+    stoi:
+        ; limpiar pilas
+        push ebx
+        push ecx
+
+        ; declarar variables
+        mov ebx, eax
+
+        xor eax, eax
+
+        ; ciclo que recorre la cadena
+        stoiLoop:
+            movzx ecx, byte[ebx]
+
+            ; verificar si estoy al final
+            cmp ecx, 0
+                ;si cumple terminar ciclo
+                je stlEnd
+
+            ; verificar si es una letra
+            cmp ecx, 48
+                ; si cumple continue
+                jl stlContinue
+
+            ; verificar si es una letra
+            cmp ecx, 57
+                ; si cumple continue
+                jg stlContinue
+
+            ; si NO sumar 48 y continuar ciclo
+            sub ecx, 48
+            imul eax, 10
+            add eax, ecx
+
+        stlContinue:
+            inc ebx
+            jmp stoiLoop
+
+        stlEnd:
+            ; eax como el valor final
+            ;mov eax, ebx
+
+            ; reestablecer valores de pila
+            pop ebx
+            pop ecx
+            
+            ;retornar eax
+            ret
+        
