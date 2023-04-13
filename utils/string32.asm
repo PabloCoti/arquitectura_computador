@@ -211,13 +211,57 @@ SECTION .text
             jmp stoiLoop
 
         stlEnd:
-            ; eax como el valor final
-            ;mov eax, ebx
-
             ; reestablecer valores de pila
             pop ebx
             pop ecx
             
             ;retornar eax
             ret
-        
+
+    ; string number_to_string = number.str()
+    str:
+        ; limpiar pilas
+        push ebx
+        push ecx
+
+        ; declarar variables
+        mov ebx, eax
+
+        xor eax, eax
+
+        ; ciclo que recorre la cadena
+        strLoop:
+            movzx ecx, byte[ebx]
+
+            ; verificar si estoy al final
+            cmp ecx, 0
+                ;si cumple terminar ciclo
+                je strEnd
+
+            ; verificar si es una letra
+            cmp ecx, 48
+                ; si cumple continue
+                jl strContinue
+
+            ; verificar si es una letra
+            cmp ecx, 57
+                ; si cumple continue
+                jg strContinue
+
+            ; si NO restar 48 y continuar ciclo
+            add ecx, 48
+            imul eax, 10
+            sub eax, ecx
+
+        strContinue:
+            inc ebx
+            jmp strLoop
+
+        strEnd:
+            ; reestablecer valores de pila
+            pop ebx
+            pop ecx
+            pop edx
+            
+            ;retornar eax
+            ret
