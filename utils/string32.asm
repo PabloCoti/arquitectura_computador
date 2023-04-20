@@ -5,6 +5,8 @@ SECTION .data
     cls db 1Bh, '[2J', 0
     pos db 1Bh, '[01;01H', 0
 
+    base dd 10
+
 SECTION .bss
     input1: resb 127
     input2: resb 128
@@ -223,45 +225,70 @@ SECTION .text
         ; limpiar pilas
         push ebx
         push ecx
+        push edx
+        push esi
 
         ; declarar variables
-        mov ebx, eax
+        mov esi, temp
 
-        xor eax, eax
+        xor ecx, ecx
 
         ; ciclo que recorre la cadena
         strLoop:
-            movzx ecx, byte[ebx]
-
             ; verificar si estoy al final
-            cmp ecx, 0
-                ;si cumple terminar ciclo
-                je strEnd
+            cmp eax, 0
+                jle strEnd
 
-            ; verificar si es una letra
-            cmp ecx, 48
-                ; si cumple continue
-                jl strContinue
+            ; vaciar edx (resultado de la division)
+            xor edx, edx
 
-            ; verificar si es una letra
-            cmp ecx, 57
-                ; si cumple continue
-                jg strContinue
+            ; edx = 10
+            mov ebx, [base]
 
-            ; si NO restar 48 y continuar ciclo
-            add ecx, 48
-            imul eax, 10
-            sub eax, ecx
+            ; edx/10
+            div ebx
 
-        strContinue:
-            inc ebx
+            ; si NO sumar 48 y continuar ciclo
+            add dl, 48
+            ; agregar a la 'lista'
+            mov byte[esi], dl
+            inc esi
+
             jmp strLoop
 
         strEnd:
-            ; reestablecer valores de pila
+            ; INVERTIR LA CADENA Y RETORNAR EL VALOR
+
+            push esi
+
+            ; calcular longitud de cadena
+            mov eax, temp
+            call strLen
+            ; edx = len(cadena)
+            mov edi, eax
+
+            mov esi, temp ; cadena[0]
+            lea edi, [esi+edi-1]
+
+            reverseLoop:
+                mov al, [esi]
+                xchg al, [edi]
+                mov [esi], al
+                inc esi
+                dec edi
+
+                cmp esi, edi
+                    jl reverseLoop
+
+            pop esi
+            mov byte[esi], 0h ; agregar teminacion de cadena
+            mov eax, temp
+
             pop ebx
             pop ecx
             pop edx
-            
-            ;retornar eax
+            pop esi
+
             ret
+
+            

@@ -10,29 +10,24 @@ SECTION .data
     msg2 db 'El entero ingresado (cadena) es: ', 0
     msg3 db 'El entero ingresado (entero) es: ', 0
 
+    entero dd 5
+
 SECTION .text
     global _start
 
     _start:
-        mov eax, msg1
+        mov eax, msg3
         call printStr
-        call input
 
-        push eax
+        mov eax, entero
+        call printIntLn
 
         mov eax, msg2
         call printStr
 
-        pop eax
-        mov ebx, eax
+        mov eax, entero
+        call str
         call printStrLn
-
-        mov eax, msg3
-        call printStr
-
-        mov eax, ebx
-        call stoi
-        call printIntLn
 
         call endP
 
